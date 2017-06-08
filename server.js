@@ -4,15 +4,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var fs = require("fs")
 
-
-mongoose.connect('mongodb://localhost/boards');
-var db =mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("connected");
-});
-
-var boards = require('./router/contents');
+var boards = require('./router/board');
 
 app.set('views', __dirname + '/src');
 app.set('view engine', 'ejs');
@@ -30,6 +22,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
  extended: true
 }));
-app.use('/boards', boards);
 
 var router = require('./router/main')(app, fs);
